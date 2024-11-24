@@ -81,6 +81,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
         .image-box:hover {
@@ -198,6 +199,139 @@
             box-shadow: none;
         }
 
+        .metrics-container {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .comparison-metrics {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .metric-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .metric-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .metric-item .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-item .metric-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .comparison-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .metadata {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .metadata-section {
+            background: var(--card-background);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .metadata-section h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .motion-metrics {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .metric-value.upward { color: var(--success-color); }
+        .metric-value.downward { color: var(--error-color); }
+        .metric-value.leftward { color: #3b82f6; }
+        .metric-value.rightward { color: #8b5cf6; }
+
+        .label {
+            color: var(--text-secondary);
+            margin-right: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
@@ -242,37 +376,74 @@
             border-color: var(--error-color);
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/exifreader/dist/exifreader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="/static/js/metrics.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>UAVision</h1>
-        <p class="subtitle">The next generation of AI powered aerial odometry
-        </p>
+        <p class="subtitle">The next generation of AI powered aerial odometry</p>
         
         <div class="image-container">
             <div class="image-box">
-                <h3>Source Image</h3>
-                <img id="image1" src="#" alt="First image">
-                <p id="timestamp1" class="timestamp">Timestamp: --</p>
+                <h3>Latest Image</h3>
+                <div id="preview1" class="preview"></div>
+                <div class="metrics-container">
+                    <div class="metric-item">
+                        <span class="metric-label">GPS Location:</span>
+                        <span class="metric-value" id="gps1">-</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Elevation:</span>
+                        <span class="metric-value" id="elevation1">-</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Timestamp:</span>
+                        <span class="metric-value" id="timestamp1">-</span>
+                    </div>
+                </div>
             </div>
+            
             <div class="image-box">
-                <h3>Target Image</h3>
-                <img id="image2" src="#" alt="Second image">
-                <p id="timestamp2" class="timestamp">Timestamp: --</p>
+                <h3>Previous Image</h3>
+                <div id="preview2" class="preview"></div>
+                <div class="metrics-container">
+                    <div class="metric-item">
+                        <span class="metric-label">GPS Location:</span>
+                        <span class="metric-value" id="gps2">-</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Elevation:</span>
+                        <span class="metric-value" id="elevation2">-</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Timestamp:</span>
+                        <span class="metric-value" id="timestamp2">-</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <button id="testButton" class="test-button">Run Motion Analysis</button>
-
-        <div class="results">
-            <h3>Motion Analysis Results</h3>
-            <div class="metric">
-                <div class="metric-label">Time Interval</div>
-                <div id="timeInterval" class="metric-value">--</div>
-            </div>
-            <div class="metric">
-                <div class="metric-label">Motion Analysis</div>
-                <div id="motionEstimate" class="metric-value">--</div>
+        <div class="comparison-metrics">
+            <h3 class="comparison-title">Performance Metrics</h3>
+            <div class="metric-group">
+                <div class="metric-item">
+                    <span class="metric-label">Speed (MPH):</span>
+                    <span class="metric-value" id="speed">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Elevation Change:</span>
+                    <span class="metric-value" id="elevationChange">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Distance Traveled:</span>
+                    <span class="metric-value" id="distance">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Time Elapsed:</span>
+                    <span class="metric-value" id="timeElapsed">-</span>
+                </div>
             </div>
         </div>
     </div>
