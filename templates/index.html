@@ -34,13 +34,14 @@
             color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
-            padding: 2rem;
+            padding: 1rem;
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
             background: rgba(16, 16, 16, 0.7);
             border-radius: 16px;
             box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
@@ -49,13 +50,13 @@
         }
 
         h1 {
-            font-size: 4.5rem;
+            font-size: 3.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             text-align: center;
             letter-spacing: -0.025em;
         }
@@ -63,20 +64,20 @@
         .subtitle {
             text-align: center;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
+            font-size: 1rem;
+            margin-bottom: 2rem;
         }
 
         .image-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
         }
 
         .image-box {
             background: var(--card-background);
-            padding: 1.5rem;
+            padding: 1rem;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
@@ -171,9 +172,9 @@
             background: linear-gradient(135deg, var(--success-color), var(--hover-success));
             color: white;
             border: none;
-            padding: 1rem 2rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -200,29 +201,30 @@
         }
 
         .metrics-container {
-            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric-card {
+            background: var(--card-background);
             padding: 1rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
+            border-radius: 12px;
+            text-align: center;
         }
 
-        .metric-item {
+        .button-container {
             display: flex;
-            justify-content: space-between;
-            margin: 0.5rem 0;
-            padding: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1.5rem 0;
         }
 
-        .metric-label {
-            color: var(--text-secondary);
+        .control-button, .test-button {
+            padding: 0.75rem 1.5rem;
             font-size: 0.9rem;
-        }
-
-        .metric-value {
-            color: var(--primary-color);
-            font-weight: 600;
         }
 
         .comparison-metrics {

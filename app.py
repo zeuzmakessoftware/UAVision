@@ -105,7 +105,7 @@ def capture_image():
         'gps': {
             'latitude': 37.7749 + (time.time() % 0.01),  # Mock changing coordinates
             'longitude': -122.4194 + (time.time() % 0.01),
-            'altitude': 100 + (time.time() % 10)  # Mock changing altitude
+            'altitude': 10 + (time.time() % 10)  # Mock changing altitude
         },
         'image': f'data:image/jpeg;base64,{img_base64}'
     }
