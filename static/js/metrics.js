@@ -53,7 +53,7 @@ function updateComparisonMetrics(images) {
             <div class="metric-group">
                 <div class="metric-item">
                     <span class="metric-label">Speed</span>
-                    <span class="metric-value">${(speed/100).toFixed(2)} kph</span>
+                    <span class="metric-value">${(speed/10000).toFixed(2)} kph</span>
                 </div>
                 <div class="metric-item">
                     <span class="metric-label">Elevation Δ</span>

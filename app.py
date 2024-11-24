@@ -21,9 +21,11 @@ socketio = SocketIO(app)
 # Store the last two images and their metadata
 latest_images = []
 
-async def lol(str):
+# Global camera object
+camera = None
+
+async def run_restack_logger(str):
     result = await analyze_email(str)
-    print(result)
 
 def calculate_motion(prev_frame, curr_frame):
     # Convert frames to grayscale
@@ -70,7 +72,7 @@ def calculate_motion(prev_frame, curr_frame):
         else:
             direction = "rightward"
 
-    asyncio.run(lol(f"restack output: {avg_magnitude}, {motion_percentage}, {direction}"))
+    asyncio.run(run_restack_logger(f"restack output: {avg_magnitude}, {motion_percentage}, {direction}"))
 
     return {
         'average_magnitude': avg_magnitude,
@@ -78,11 +80,25 @@ def calculate_motion(prev_frame, curr_frame):
         'primary_direction': direction
     }
 
+def initialize_camera():
+    global camera
+    camera = cv2.VideoCapture(0)
+    if not camera.isOpened():
+        raise RuntimeError("Could not initialize camera")
+
+def cleanup_camera():
+    global camera
+    if camera is not None:
+        camera.release()
+
 def capture_image():
     """Capture an image from the camera and extract metadata"""
-    cap = cv2.VideoCapture(0)
-    ret, frame = cap.read()
-    cap.release()
+    global camera
+    
+    if camera is None or not camera.isOpened():
+        initialize_camera()
+    
+    ret, frame = camera.read()
     
     if not ret:
         return None, None
@@ -147,4 +163,8 @@ def handle_update_request():
         })
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    try:
+        initialize_camera()
+        socketio.run(app, debug=True)
+    finally:
+        cleanup_camera()
