@@ -32,31 +32,37 @@
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.2;
             min-height: 100vh;
-            padding: 1rem;
-            overflow-x: hidden;
+            padding: 0.25rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
-            padding: 1.5rem;
+            padding: 0.5rem;
             background: rgba(16, 16, 16, 0.7);
-            border-radius: 16px;
+            border-radius: 12px;
             box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 98vh;
+            overflow-y: auto;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 1rem;
+            margin-bottom: 0.25rem;
             text-align: center;
             letter-spacing: -0.025em;
         }
@@ -64,46 +70,61 @@
         .subtitle {
             text-align: center;
             color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 2rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .image-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .image-box {
             background: var(--card-background);
-            padding: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0.35rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
         }
 
-        .image-box:hover {
-            transform: translateY(-2px);
-            background: var(--card-hover);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        }
-
         .image-box h3 {
-            font-size: 1.25rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--primary-color);
-            margin-bottom: 1rem;
+            margin-bottom: 0.25rem;
         }
 
         .image-box img {
             width: 100%;
+            max-height: 120px;
+            object-fit: cover;
             height: auto;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            border-radius: 4px;
+            margin-bottom: 0.35rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview {
+            width: 100%;
+            height: 120px;
+            background: var(--background-color);
+            border-radius: 4px;
+            margin-bottom: 0.35rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .timestamp {
@@ -202,54 +223,55 @@
 
         .metrics-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin: 0.5rem 0;
         }
 
         .metric-card {
             background: var(--card-background);
-            padding: 1rem;
-            border-radius: 12px;
+            padding: 0.5rem;
+            border-radius: 6px;
             text-align: center;
         }
 
         .button-container {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
             justify-content: center;
-            margin: 1.5rem 0;
+            margin: 0.5rem 0;
         }
 
         .control-button, .test-button {
-            padding: 0.75rem 1.5rem;
-            font-size: 0.9rem;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.8rem;
+            min-width: 100px;
         }
 
         .comparison-metrics {
             background: var(--card-background);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .metric-group {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
         }
 
         .metric-item {
             background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 8px;
+            padding: 0.5rem;
+            border-radius: 6px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.25rem;
             transition: all 0.3s ease;
         }
 
@@ -259,43 +281,43 @@
         }
 
         .metric-item .metric-label {
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
         .metric-item .metric-value {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-primary);
             font-variant-numeric: tabular-nums;
         }
 
         .comparison-title {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--primary-color);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             text-align: center;
         }
 
         .metadata {
-            margin-top: 1rem;
-            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
         }
 
         .metadata-section {
             background: var(--card-background);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
         }
 
         .metadata-section h4 {
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
         }
 
         .motion-metrics {
@@ -336,19 +358,48 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 0.25rem;
             }
 
             .container {
-                padding: 1rem;
-            }
-
-            .image-container {
-                grid-template-columns: 1fr;
+                padding: 0.5rem;
+                max-height: 100vh;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.75rem;
+            }
+
+            .metrics-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .button-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .control-button, .test-button {
+                flex: 1 1 auto;
+                min-width: 80px;
+                padding: 0.25rem 0.5rem;
+            }
+
+            .image-container {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 100%;
+            }
+
+            .preview {
+                height: 100px;
+            }
+
+            .image-box img {
+                max-height: 100px;
             }
         }
 
@@ -384,9 +435,6 @@
 </head>
 <body>
     <div class="container">
-        <h1>UAVision</h1>
-        <p class="subtitle">The next generation of AI powered aerial odometry</p>
-        
         <div class="image-container">
             <div class="image-box">
                 <h3>Latest Image</h3>
